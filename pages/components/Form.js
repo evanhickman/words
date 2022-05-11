@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
-import { app, db } from '../../firebaseConfig';
+import { db } from '../../firebaseConfig';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { randomArrayItem } from '../../utilities/randomArrayItem';
 
 const dbInstance = collection(db, 'words');
 
 export default function Form() {
   const [input, setInput] = useState('');
   const [wordsArr, setWordsArr] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const saveWords = (e) => {
     e.preventDefault();
@@ -20,12 +23,14 @@ export default function Form() {
   };
 
   const getWords = () => {
+    setLoading(true);
     getDocs(dbInstance).then((data) => {
       setWordsArr(
         data.docs.map((item) => {
           return { ...item.data(), id: item.id };
         })
       );
+      setLoading(false);
     });
   };
 
@@ -36,14 +41,17 @@ export default function Form() {
   return (
     <section>
       <div className='container'>
-        <div className='bg-lime-200 p-2 rounded-md'>
-          {wordsArr.map((word) => {
+        <div className='bg-lime-200 p-2 rounded-md relative'>
+          <div className='bg-blur'></div>
+          {loading && 'Loading...'}
+          {/* {wordsArr !== [] && randomArrayItem(wordsArr)['words']} */}
+          {/* {wordsArr.map((word) => {
             return (
               <div key={word.id}>
                 <p>{word.words}</p>
               </div>
             );
-          })}
+          })} */}
         </div>
         <form
           onSubmit={saveWords}
@@ -60,7 +68,7 @@ export default function Form() {
           <input
             type='submit'
             value='say it'
-            className='py-1 px-2 rounded-md text-white bg-slate-800 cursor-pointer transition hover:bg-orange-400 hover:text-slate-800 focus:bg-orange-400 focus:text-slate-800'
+            className='py-1 px-2 rounded-md text-slate-800 bg-lime-200 cursor-pointer transition hover:bg-orange-400 focus:bg-orange-400'
           />
         </form>
       </div>

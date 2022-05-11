@@ -11,7 +11,11 @@ module.exports = {
       light: 200,
       black: 900,
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        blur: "url('/public/images/gradient.jpeg')",
+      },
+    },
   },
   plugins: [],
 };

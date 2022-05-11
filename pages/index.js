@@ -13,7 +13,7 @@ export default function Home() {
       <main>
         <header className='section'>
           <h1 className='font-black text-4xl text-center'>words</h1>
-          <p className='text-center'>an app for inspiration</p>
+          <p className='text-center'>tangle us in our desires</p>
         </header>
         <Form></Form>
       </main>
