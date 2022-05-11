@@ -2,17 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  @apply box-border;
+}
+
 html,
 body {
-  @apply p-0 m-0;
-  font-family: Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-    Helvetica Neue, sans-serif;
+  @apply p-0 m-0 font-sans font-light text-slate-800;
 }
 
 a {
-  @apply text-inherit no-underline;
+  @apply no-underline;
 }
 
-* {
-  @apply box-border;
+input {
+  @apply border-0 shadow-none drop-shadow-none outline-none;
+}
+
+section,
+.section {
+  @apply p-4;
+}
+
+.container {
+  @apply max-w-md my-0 mx-auto;
 }
